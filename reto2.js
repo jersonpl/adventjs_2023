@@ -1,7 +1,6 @@
 function manufacture(gifts, materials) {
-  // Code here
   return gifts.filter((item) =>
-    item.split("").every((x) => materials.includes(x))
+    item.split("").every((item) => materials.includes(item))
   );
 }
 
@@ -22,3 +21,7 @@ const gifts3 = ["libro", "ps5"];
 const materials3 = "psli";
 
 console.log(manufacture(gifts3, materials3)); // []
+
+270;
+2906;
+3;

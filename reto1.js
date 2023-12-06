@@ -1,10 +1,5 @@
-function findFirstRepeated(gifts) {
-  let alreadyViews = [];
-
-  for (let gift of gifts) if (alreadyViews.includes(gift)) return gift;
-  alreadyViews.push(gift);
-
-  return -1;
+function findFirstRepeated(gifts = []) {
+  return gifts.find((item, index) => gifts.indexOf(item) !== index) ?? -1;
 }
 
 const giftIds = [2, 1, 3, 5, 3, 2];

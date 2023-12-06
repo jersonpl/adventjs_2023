@@ -1,46 +1,30 @@
-function decode(message) {
-  const getToReverse = (message) => {
-    let toReverse = null;
-    let index = 0;
-    for (let item of message.split("")) {
-      if (item == "(") toReverse = { begin: index };
-      else if (item == ")") {
-        toReverse.end = index;
-        break;
-      }
-      index++;
-    }
-    return toReverse;
-  };
+function decode(message = "") {
+  let match = message.match(/\(([^()]+?)\)/)?.[0];
 
-  let data = getToReverse(message);
-
-  let result = "";
-  while (data) {
-    result =
-      message.substring(0, data.begin) +
-      message
-        .substring(data.begin + 1, data.end)
-        .split("")
-        .reverse()
-        .join("") +
-      message.substring(data.end + 1);
-    message = result;
-    data = getToReverse(message);
+  while (match) {
+    const index = message.indexOf(match);
+    message =
+      message.slice(0, index) +
+      match.slice(1, -1).split("").reverse().join("") +
+      message.slice(index + match.length);
+    match = message.match(/\(([^()]+)\)/g)?.[0];
   }
-  return result;
+
+  return message;
 }
 
 const a = decode("hola (odnum)");
 console.log(a); // hola mundo
 
-const b = decode("(olleh) (dlrow)!"); //(nosrej)
-console.log(b); // hello world!
+// const b = decode("(olleh) (dlrow)!"); //(nosrej)
+// console.log(b); // hello world!
 
-const c = decode("sa(u(cla)atn)s ho(b(ri)r)le");
-console.log(c); // santaclaus
+// const c = decode("sa(u(cla)atn)s ho(b(ri)r)le");
+// console.log(c); // santaclaus
 
-const d = decode("(olleh) sa(u(cla)atn)s (dlrow)! sa(u(cla)atn)s");
+const d = decode(
+  " sa(u(cla)atn)s (olleh) sa(u(cla)atn)s (dlrow)! sa(u(cla)atn)s"
+);
 console.log(d); // santaclaus
 
 // Paso a paso:
