@@ -1,33 +1,30 @@
 function decode(message) {
-  // Code here
-
   const getToReverse = (message) => {
-    let toReverse = {};
-    let splitted = message.split("");
-    for (let index = 0; index < splitted.length; index++) {
-      let item = splitted[index];
-      if (item == "(") {
-        toReverse.begin = index;
-      } else if (item == ")") {
+    let toReverse = null;
+    let index = 0;
+    for (let item of message.split("")) {
+      if (item == "(") toReverse = { begin: index };
+      else if (item == ")") {
         toReverse.end = index;
         break;
       }
+      index++;
     }
-    return toReverse.end ? toReverse : null;
+    return toReverse;
   };
 
   let data = getToReverse(message);
 
   let result = "";
   while (data) {
-    result = "";
-    result += message.substring(0, data.begin);
-    result += message
-      .substring(data.begin + 1, data.end)
-      .split("")
-      .reverse()
-      .join("");
-    result += message.substring(data.end + 1);
+    result =
+      message.substring(0, data.begin) +
+      message
+        .substring(data.begin + 1, data.end)
+        .split("")
+        .reverse()
+        .join("") +
+      message.substring(data.end + 1);
     message = result;
     data = getToReverse(message);
   }
