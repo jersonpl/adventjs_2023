@@ -1,13 +1,12 @@
 function decode(message = "") {
-  let match = message.match(/\(([^()]+?)\)/)?.[0];
+  let match = message.match(/\([^()]+\)/)?.[0];
 
   while (match) {
-    const index = message.indexOf(match);
-    message =
-      message.slice(0, index) +
-      match.slice(1, -1).split("").reverse().join("") +
-      message.slice(index + match.length);
-    match = message.match(/\(([^()]+)\)/g)?.[0];
+    message = message.replace(
+      match,
+      match.slice(1, -1).split("").reverse().join("")
+    );
+    match = message.match(/\([^()]+\)/)?.[0];
   }
 
   return message;

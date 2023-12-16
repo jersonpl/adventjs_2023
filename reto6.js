@@ -1,16 +1,10 @@
-function maxDistance(movements) {
-  let distance = 0;
-  let temp = 0;
-  for (let movement of movements) {
-    if (movement == ">") distance++;
-    else if (movement == "<") distance--;
-    else temp++;
-  }
-
-  if (distance >= 0) distance += temp;
-  else distance -= temp;
-
-  return Math.abs(distance);
+function maxDistance(movements = "") {
+  return (
+    Math.abs(
+      (movements.match(/>/g)?.length ?? 0) -
+        (movements.match(/</g)?.length ?? 0)
+    ) + (movements.match(/\*/g)?.length ?? 0)
+  );
 }
 
 const movements = ">>*<";
